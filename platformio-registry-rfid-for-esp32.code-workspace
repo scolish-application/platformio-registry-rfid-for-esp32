@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../platformio-registry-rfid-for-esp32"
+		},
+		{
+			"name": "platformio-registry-rfid-for-esp32",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
