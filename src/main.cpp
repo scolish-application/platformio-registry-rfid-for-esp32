@@ -18,6 +18,12 @@ WiFiClient client;
 // Definindo o pino do buzzer
 #define BUZZER_PIN 12  // Pino conectado ao buzzer
 
+// Definindo a enumeração para as direções de entrada/saída
+enum RegistrationDirection {
+  IN,  // Entrada
+  OUT  // Saída
+};
+
 void setup() {
   // Inicializando comunicação serial
   Serial.begin(115200);
@@ -53,8 +59,8 @@ void loop() {
     Serial.print("Cor do Cartão: ");
     Serial.println(cardColor);
 
-    // Determinar a direção (IN ou OUT)
-    RegistrationDirection direction = (cardColor == "RED") ? RegistrationDirection::IN : RegistrationDirection::OUT;
+    // Determinar a direção (IN ou OUT) com base na cor do cartão
+    RegistrationDirection direction = (cardColor == "RED") ? IN : OUT;
 
     // Emitir um som diferente no buzzer dependendo da cor
     playBuzzerSound(cardColor);
@@ -133,7 +139,7 @@ long getUserIdByCardCode(String cardCode) {
 // Função para registrar o evento de entrada/saída
 void registerEvent(RegistrationDirection direction, long userId) {
   HTTPClient http;
-  String jsonBody = "{\"direction\":\"" + String(direction == RegistrationDirection::IN ? "IN" : "OUT") + "\","
+  String jsonBody = "{\"direction\":\"" + String(direction == IN ? "IN" : "OUT") + "\","
                     "\"userId\":" + String(userId) + ","
                     "\"createdAt\":\"" + String(millis()) + "\"}";  // Usando millis() como timestamp
 
